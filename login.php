@@ -5,7 +5,5 @@
 	$customer = new customer(Conn::checkConn());
 	$loginResultMsg = $customer->login($_POST['username'], $_POST['password']); 
 
-	echo $loginResultMsg;
-
-
+ 	echo $loginResultMsg;
 ?>

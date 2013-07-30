@@ -10,6 +10,7 @@ $("#loginForm a").click(function(){
 	$("input[name='companyButton']").prop('checked', false);
 	$("input[name='userButton']").prop('checked', true);
 	$("#loginForm form :input:not(#loginSubmit)").val('');
+	$(".authenticateMsg").empty();
 	return false;
 })
 
@@ -18,7 +19,8 @@ $("input[name='userButton']").click(function(){
 	$("#registerCompany").hide();
 	$("input[name='companyButton']").prop('checked', false);
 	$("#registerCompany :input:not(.registerSubmit)").val('');
-	$("form span").empty();
+	$("form span, .authenticateMsg").empty();
+	$(".retypePassword2").removeClass("passwordError");
 	return false;
 });
 
@@ -27,7 +29,8 @@ $("input[name='companyButton']").click(function(){
 	$("#registerUser").hide();
 	$("input[name='userButton']").prop('checked', false);
 	$("#registerUser :input:not(.registerSubmit)").val('');
-	$("form span").empty();
+	$("form span, .authenticateMsg").empty();
+	$(".retypePassword").removeClass("passwordError");
 	return false;
 });
 
@@ -37,7 +40,8 @@ $("#registerForm a").click(function(){
 	$("#registerForm").hide();
 	$("#registerForm form :input:not(.registerSubmit)").val('');
 	//.empty() removes contents in a tag, .remove() removes tag and contents!
-	$("form span").empty();
+	$("form span, .authenticateMsg").empty();
+	$(".retypePassword, .retypePassword2").removeClass("passwordError");
 	return false;
 });
 
@@ -66,7 +70,7 @@ $(".retypePassword2, .password2").change(function(){
 
 
 
-/* Authentication */
+// AUTHENTICATION
 $("#loginForm form").submit(function(){
 	if( !$("#loginForm input").val() ) {
 		$(".authenticateMsg").html("Enter both username and password!");
@@ -76,7 +80,12 @@ $("#loginForm form").submit(function(){
 			url: "login.php",
 			data: $(this).serialize(),
 			success: function(response) {
-				$(".authenticateMsg").html(response);
+
+				if(response === "Authentication Verified") {
+					window.location = 'home.php';
+				} else {
+					$(".authenticateMsg").html(response);
+				}
 			},
 		})
 	}
@@ -92,13 +101,16 @@ $("#registerUser form").submit(function(){
 			url:"register.php",
 			data:$(this).serialize(),
 			success: function(response) {
-				$(".authenticateMsg").html(response);
+				if(response === "Authentication Verified") {
+					window.location = 'home.php';
+				} else {
+					$(".authenticateMsg").html(response);
+				}
 			},
 		})
 	}
 	return false;
 })
-
 
 $("#registerCompany form").submit(function(){
 	if(!$("#registerCompany input").val()) {
@@ -109,9 +121,24 @@ $("#registerCompany form").submit(function(){
 			url:"register.php",
 			data:$(this).serialize(),
 			success: function(response) {
-				$(".authenticateMsg").html(response);
+				if(response === "Authentication Verified") {
+					window.location = 'home.php';
+				} else {
+					$(".authenticateMsg").html(response);
+				}
 			},
 		})
 	}
 	return false;
+});
+
+
+
+
+/* HOME PAGE */
+$(".settingsPopup").hide();
+
+$(".settings").click(function(){
+
+	$(".settingsPopup").toggle();
 })

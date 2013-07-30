@@ -1,3 +1,220 @@
 .passwordError {
 	border: 1px solid #f00;
 }
+
+body {
+	width:1200px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.pageBody {
+	width:90%;
+	margin: 5% auto;
+}
+
+/* HEADER */
+.header {
+	display: block;
+}
+.header .logo, .search, .navbar {
+	display: inline-block;
+}
+.header .logo {
+
+}
+.header .logo a {
+	font-size: 3em;
+	text-decoration: none;
+}
+.header .search {
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.header .navbar {
+	display:block;
+	float:right;
+}
+.header .navbar .navList > li {
+	list-style: none;
+	display:inline-block;
+	margin:5px;
+}
+.header .navbar .navList > li > a {
+	text-decoration: none;
+	font-size: 2em;
+}
+
+/* HEADER SETTINGS POPUP*/
+.settingsPopup {
+}
+.settingsList {
+	position:absolute;
+	top:70px;
+	right:80px;
+}
+.settingsList li {
+	position: relative;
+	right: 30px;
+	list-style:none;
+	margin:5px;
+}
+.settingsList li a {
+	text-decoration: none;
+	font-size:1em;
+}
+
+
+
+
+/* FEATURED CAMPAIGNS */
+.featuredContainer, .popularContainer {
+	display: block;
+	margin-top:50px;
+	margin-bottom:50px;
+}
+
+.featuredCampaign, .popularCampaign {
+	display: inline-block;
+	width: 250px;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+/* POPULAR CAMPAIGNS */
+
+
+
+
+/* USER/COMPANY PROFILE PAGE */
+#userPic, #companyPic {
+	float:left;
+}
+#userAbout, #companyAbout {
+	clear:right;
+	width: 70%;
+	padding-left: 20%;
+}
+#userAbout #userName, #companyAbout #companyName {
+	display: inline-block;
+	float: left;
+}
+
+#userMedals ul, #companyMedals ul {
+	display: inline-block;
+}
+
+#userMedals ul li, #companyMedals ul li {
+	display: inline-block;
+	list-style: none;
+}
+
+#userSideBar, #companySideBar {
+	display:inline-block;
+	width:18%;
+	float:left;
+	clear:left;
+}
+#userSocial. #companySocial {
+	display: block;
+	margin:5% 0 ;
+	padding: 4% 2% ;
+}
+
+#userSocial ul li, #companySocial ul li{
+	list-style: none;
+	margin-left:-25%;
+}
+
+
+#userActivityContainer, #companyActivityContainer {
+	display:inline-block;
+	margin: 1%;
+	padding: 3%;
+	border:1px dashed black;
+}
+
+.userActivity, .companyActivity {
+	display: block;
+	margin: 5% 0;
+}
+
+#userMainBody, #companyMainBody {
+	float:right;
+	width:80%;
+}
+
+/* User Profile Only */
+
+#userCurrCampContainer {
+	display:block;
+}
+
+.userCurrCamp {
+	display:block;
+	margin: 3% 2%;
+	border:1px solid red;
+}
+
+.userCurrCamp img {
+	display:inline-block;
+	width:150px;
+	height:150px;
+	float: left;
+	margin-right: 5%;
+}
+
+.userCurrCampAbout{
+	display:inline-block;
+	width: 70%;
+}
+
+.userCurrCamp .durationAndLink {
+	clear:both;
+}
+.userCurrCamp .durationBar {
+	display: inline-block;
+	margin:3%;
+}
+
+.userCurrCamp .userCampaignLink {
+	display:inline-block;
+	margin-left:3%;
+}
+
+#userPrevCampContainer {
+	display:block;
+	margin-top:5%;
+}
+
+.userPrevCamp {
+	display:block;
+	margin: 2% 1%;
+	padding: 1%;
+	width: 28%;
+	float: left;
+	border: 1px solid green;
+}
+
+.userPrevCamp img {
+	height:175px;
+	width:175px;
+}
+
+
+/* Company Profile Only */
+
+#companyCurrCampName {
+	display:inline-block;
+	float:left;
+}
+
+#companyCurrCamp > button {
+	float:left;
+	margin-left: 30%;
+}
+
+#companyCurrCampVideo {
+	clear:both;
+}

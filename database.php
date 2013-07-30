@@ -102,7 +102,7 @@ class customerDAO {
 
 
 	// Check for duplicate of username or email
-	public function checkForDup($firstname, $lastname, $companyName, $email, $username, $unhashedPassword, $retypePassword) {
+	public function checkForDup($firstname, $lastname, $companyName, $email, $username, $unhashedPassword) {
 		$sql = "SELECT email, username FROM customerLogin WHERE email = :email OR username = :username";
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute(array(
@@ -164,16 +164,16 @@ class customerDAO {
 class customer extends customerDAO {
 	static $customerID, $firstname, $lastname, $companyName, $email, $customerType;
 
-	// Define static variables 
+	// Define static variables & set them to SESSION variables
 	public function defineSESSION($sessionID) {
 		$customerInfo = self::fetchCustomerInfo($sessionID);
 		foreach ($customerInfo as $key=>$value) {
-			self::$customerID = $value['customerID'];
-			self::$firstname = $value['firstname'];
-			self::$lastname = $value['lastname'];
-			self::$companyName = $value['companyName'];
-			self::$email = $value['email'];
-			self::$customerType = $value['customerType'];
+			self::$customerID = $_SESSION['customerID'] = $value['customerID'];
+			self::$firstname = $_SESSION['firstname'] = $value['firstname'];
+			self::$lastname = $_SESSION['lastname'] = $value['lastname'];
+			self::$companyName = $_SESSION['companyName'] = $value['companyName'];
+			self::$email = $_SESSION['email'] = $value['email'];
+			self::$customerType = $_SESSION['customerType'] = $value['customerType'];
 		}
 	}
 
@@ -191,7 +191,7 @@ class customer extends customerDAO {
 				return $registrationResult['emailError'] . "<br>" . $registrationResult['usernameError'];
 			} else {
 				self::defineSESSION($sessionID);
-				return "Registration Successful!";
+				return "Authentication Verified";
 			}
 		}
 	}
@@ -207,7 +207,7 @@ class customer extends customerDAO {
 			return "Your login information was incorrect. Please try again";
 		} else {
 			self::defineSESSION($sessionID);
-				return "Welcome " . self::$firstname;
+			return "Authentication Verified";
 		} 
 	}
 
