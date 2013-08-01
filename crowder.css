@@ -91,20 +91,38 @@ body {
 #userPic, #companyPic {
 	float:left;
 }
-#userAbout, #companyAbout {
+#userInfo, #companyInfo {
 	clear:right;
 	width: 70%;
 	padding-left: 20%;
 }
-#userAbout #userName, #companyAbout #companyName {
+
+#editAboutButton {
+	position:absolute;
+	left: 80%;
+	top:30%;
+}
+#editAboutTextarea {
+	width: 100%;
+	height:15%;
+}
+#editAboutForm button {
+	float:right;
+}
+
+#About {
+	display:block;
+	float:left;
+	height:18%;
+}
+
+#userInfo #userName, #companyInfo #companyName {
 	display: inline-block;
 	float: left;
 }
-
 #userMedals ul, #companyMedals ul {
 	display: inline-block;
 }
-
 #userMedals ul li, #companyMedals ul li {
 	display: inline-block;
 	list-style: none;
@@ -121,7 +139,6 @@ body {
 	margin:5% 0 ;
 	padding: 4% 2% ;
 }
-
 #userSocial ul li, #companySocial ul li{
 	list-style: none;
 	margin-left:-25%;
@@ -134,12 +151,10 @@ body {
 	padding: 3%;
 	border:1px dashed black;
 }
-
 .userActivity, .companyActivity {
 	display: block;
 	margin: 5% 0;
 }
-
 #userMainBody, #companyMainBody {
 	float:right;
 	width:80%;
@@ -170,15 +185,15 @@ body {
 	width: 70%;
 }
 
-.userCurrCamp .durationAndLink {
+.durationAndLink {
 	clear:both;
 }
-.userCurrCamp .durationBar {
+.durationBar {
 	display: inline-block;
 	margin:3%;
 }
 
-.userCurrCamp .userCampaignLink {
+.userCurrCampLink {
 	display:inline-block;
 	margin-left:3%;
 }
@@ -204,17 +219,64 @@ body {
 
 
 /* Company Profile Only */
+#companyCurrCampContainer {
+	border: 1px solid orange;
+}
 
+
+	/* Edit Curr Camp Form */
+#editCurrCampButton {
+	float:right;
+	opacity:1.0;
+}
+#editCurrCampForm {
+	padding: 3%;
+	border:1px solid green;
+}
+#editCampName, #editCampVideoURL {
+	width: 60%;
+	height:4%;
+}
+
+#editCampAbout, #editCampPricing {
+	width: 80%;
+	height:20%;
+}
+	
+
+	/* Div showing if no campaign running */
+#companyCurrCampNULL {
+	display:block;
+	padding:2% 5% 2% 5%;
+	border: 1px solid red;
+}
+
+	/* Current Campaign Running */
+#companyCurrCamp {
+	display:block;
+	padding: 2% 5% 2% 5%;
+	border:1px solid blue;
+}
 #companyCurrCampName {
-	display:inline-block;
-	float:left;
-}
 
-#companyCurrCamp > button {
-	float:left;
-	margin-left: 30%;
 }
-
 #companyCurrCampVideo {
 	clear:both;
 }
+
+
+/* Create new Campaign Page */
+#createCurrCampForm {
+	padding: 3%;
+	border:1px solid green;
+}
+#createCampName, #createCampVideoURL {
+	width: 60%;
+	height:4%;
+}
+
+#createCampAbout, #createCampPricing {
+	width: 80%;
+	height:20%;
+}
+	

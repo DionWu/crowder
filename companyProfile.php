@@ -7,6 +7,7 @@
 
 	<?php
 		require 'header.php';
+		$customer = new customer (Conn::checkConn());
 	?>
 
 	<div class="pageBody">
@@ -15,7 +16,7 @@
 			<img src="images/placeholder.jpg">
 		</div>
 
-		<div id="companyAbout">
+		<div id="companyInfo">
 			<h1 id="companyName"> <?php echo $_SESSION['companyName'] ?> </h1>
 			<div id="companyMedals"> 
 				<ul>
@@ -25,7 +26,23 @@
 					<li> <img src="images/badge.png"> </li>
 				</ul>
 			</div>
-			<p id="About"> Wallit is a company that was established blah blah blah sample text.  Wallit is a company that was established blah blah blah sample text.  Wallit is a company that was established blah blah blah sample text.  Wallit is a company that was established blah blah blah sample text.  Wallit is a company that was established blah blah blah sample text. </p>
+			<button type="button" id="editAboutButton">Edit</button>
+			<?php
+					$about = $customer->fetchCustomerAbout($_SESSION['customerID']);
+			?>
+			<form id="editAboutForm">
+				<textarea id="editAboutTextarea" maxlength="500" name="userAbout"><?php echo $about['about'];?></textarea>
+				<input type="submit">
+			</form>
+			<div id="About">
+				<?php
+					if (!$about['about']) {
+						echo "Edit your description here!";
+					} else {
+						echo $about['about'];
+					}
+				?>
+			</div>
 		</div>
 
 
@@ -63,30 +80,61 @@
 		</div>
 
 		<div id="companyMainBody">
+			<button type="button" id="editCurrCampButton"> Edit </button>
 
-			<div id="companyCurrCamp">
-				<h3 id="companyCurrCampName"> Finding User Panel Members </h3>
-				<button type="button"> Apply Here</button>
-				<div id="companyCurrCampVideo">
-					<iframe width="560" height="315" src="//www.youtube.com/embed/Mx1Cy3smRr0" frameborder="0" allowfullscreen></iframe>
+
+			<!-- COMPANY CURRENT CAMPAIGN -->
+			<div id="companyCurrCampContainer">
+
+				<?php
+					$currCampInfoArray = $customer->fetchCurrCampInfo($_SESSION['customerID']);
+					if (empty($currCampInfoArray)) {
+				?>
+
+				<div id="companyCurrCampNULL">
+					<p>Looks like you have no Campaign running right now. Why don't you start one?</p>
+					<a href="createCampPage.php"><button type="submit" id="createCurrCampButton">Start a Campaign Now!</button></a>
 				</div>
-				<div id="companyCurrCampAbout">
-					<h4> What is this Campaign About? </h4>
-					<p> Wallit is currently launching it's app in the beta stage and we're looking for early stage adopters to not only help us spread the word of this product but also be early testers! Go User Panel! Wallit is currently launching it's app in the beta stage and we're looking for early stage adopters to not only help us spread the word of this product but also be early testers! Go User Panel! Wallit is currently launching it's app in the beta stage and we're looking for early stage adopters to not only help us spread the word of this product but also be early testers! Go User Panel! </p>
 
-					<p> We need you do testing statement sentence testing statement sentence. We need you do testing statement sentence testing statement sentence We need you do tng statement sentence testing statement sentence We need you do testing statement sentence testin sentence testing statement sentence. W testing statement setesting statement sentence We need you do testing statement sentence testing statement sentence We need you dog statement sentence testing statement sentence. We need you do testing statement sentence testing statentence We need you do testing statement sentence testing statement sentence We need you do testing statement sentence testing statement sentence. </p>
+					<?php
+					} else {
+					?>
 
-					<h4> Pricing Options </h4>
-					<ul id="pricingOptions">
-						<li> 25 USD per 1000 clicks </li>
-						<li> 35 USD per 100 video views </li>
-						<li> 10% of all purchases </li>
-						<li> 15% off coupon to use </li>
-					</ul>
-
-					<p> Interested in being a Crowder for <?php echo $_SESSION['companyName'] ?> ? <button type="button"> Apply Here</button> </p>
+				<div id="companyCurrCamp">
+					<h3 id="companyCurrCampName"> <?php echo $currCampInfoArray['campName']; ?></h3>
+						<?php
+							if ($currCampInfoArray['campVideoURL']) {
+						?>
+					<div id="companyCurrCampVideo">
+						<iframe width="560" height="315" src= <?php echo $currCampInfoArray['campVideoURL']; ?> frameborder="0" allowfullscreen></iframe>
+					</div>
+						<?php
+							};
+						?>
+					<div id="companyCurrCampInfo">
+						<h4> What is this Campaign About? </h4>
+						<div id="companyCurrCampAbout"><?php echo $currCampInfoArray['campAbout']; ?></div>
+						<h4> Pricing Options </h4>
+						<div id="companyCurrCampPricing"><?php echo $currCampInfoArray['campPricing'];?></div>
+					</div>
+				</div>
+					
 			</div>
 
+			<form id="editCurrCampForm">
+				<label for="editCampName">Campaign Name: </label>
+				<textarea id="editCampName" name="editCampName" maxlength="255"><?php echo $currCampInfoArray['campName']; ?></textarea> <br>
+				<label for="editCampVideoURL">Enter Video Embed URL (optional): </label>
+				<textarea id="editCampVideoURL" name="editCampVideoURL" maxlength="255"><?php echo $currCampInfoArray['campVideoURL']; ?></textarea> <br>
+				<label for="editCampAbout">Describe what this campaign is about</label><br>
+				<textarea id="editCampAbout" name="editCampAbout" maxlength="1000"><?php echo $currCampInfoArray['campAbout']; ?></textarea> <br>
+				<label for="editCampPricing">What are the Pricing Options? </label><br>
+				<textarea id="editCampPricing" name="editCampPricing" maxlength="500"><?php echo $currCampInfoArray['campPricing'];?></textarea><br>
+				<input type="submit">
+			</form>
+					<?php
+						};
+					?>
 		</div>
 
 	</div>

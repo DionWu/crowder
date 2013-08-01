@@ -142,3 +142,96 @@ $(".settings").click(function(){
 
 	$(".settingsPopup").toggle();
 })
+
+
+/* Profile Pages */
+
+	/* edit About */
+$("#editAboutButton").fadeOut(0);
+$("#editAboutForm").hide();
+
+$("#About").hover(function(){
+	$("#editAboutButton").fadeIn(0);	
+}, function() {
+	$("#editAboutButton").fadeOut(2000);
+});
+
+$("#editAboutButton").click(function(){
+	$("#editAboutButton").fadeOut(0);
+	$("#About").hide();
+	$("#editAboutForm").show();
+})
+
+$("#editAboutForm").submit(function(){
+	$.ajax ({
+		type: "POST",
+		url: "editAbout.php",
+		data: $(this).serialize(),
+	}).done(function(response) {
+		$("#editAboutForm").hide();
+		$("#About").html(response);
+		$("#About").show();
+	});
+	return false;
+})
+
+	/* edit Social */
+
+
+
+	/*Company Page Only */
+		/*Current Campaign*/
+$("#editCurrCampButton").fadeOut(0);
+$("#editCurrCampForm").hide();
+
+$("#companyCurrCamp").hover(function(){
+	$("#editCurrCampButton").fadeIn(0);
+}, function() {
+	$("#editCurrCampButton").fadeOut(2000);
+})
+
+$("#editCurrCampButton").click(function(){
+	$(this).fadeOut(0);
+	$("#editCurrCampForm").show();
+	$("#companyCurrCamp").hide();
+})
+
+
+$("#editCurrCampForm").submit(function(){
+	$.ajax ({
+		type: "POST",
+		url: "editCurrCamp.php",
+		data: $(this).serialize(),
+		dataType: "json"
+	}).done(function(response) {
+		$("#editCurrCampForm").hide();
+		$("#companyCurrCampName").html(response.editCampName);
+		if (response.editCampVideoURL) {
+			$("#companyCurrCampVideo iframe").attr("src", response.editCampVideoURL);
+		} else {
+			$("#companyCurrCampVideo").hide();
+		};
+		$("#companyCurrCampAbout").html(response.editCampAbout);
+		$("#companyCurrCampPricing").html(response.editCampPricing);
+		$("#companyCurrCamp").show();
+	});
+	return false;
+})
+
+
+
+
+
+/* create new Campaign Page */
+$("#createCurrCampForm").submit(function(){
+	$.ajax ({
+		type: "POST",
+		url: "createCurrCamp.php",
+		data: $(this).serialize(),
+		dataType: "json"
+	}).done(function(response) {
+		window.location = 'companyProfile.php';
+	});
+	return false;
+})
+

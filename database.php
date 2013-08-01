@@ -154,6 +154,93 @@ class customerDAO {
 		$customerInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $customerInfo;
 	}
+
+	// Add / update customer Profile About Into into customerAbout table
+	public function updateCustomerAbout($sessionID, $about) {
+		$sql = "SELECT customerID FROM customerabout WHERE customerID = :sessionID";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':sessionID' => $sessionID
+			));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if( $result ) {
+			$sql2 = "UPDATE customerabout SET about= :about WHERE customerID = :sessionID";
+		} else {
+		$sql2 = "INSERT INTO customerabout (customerID, about) VALUES (:sessionID, :about)";
+		};
+
+		$stmt2 = $this->db->prepare($sql2);
+		$result2 = $stmt2->execute(array(
+			':about'=> $about,
+			':sessionID' => $sessionID
+			));
+		if(!$result2) {
+			return "false";
+		} else {
+			return "true";
+		};
+	}
+
+	// Fetch customer Profile About info from customerAbout table
+	public function fetchCustomerAbout($customerID){
+		$sql = "SELECT about FROM customerabout WHERE customerID = :customerID";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':customerID' => $customerID));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	// Insert new Current Campaign for Company in campInfo Table
+	public function createCurrCampInfo($sessionID, $campName, $campVideoURL, $campAbout, $campPricing) {
+	$sql = "INSERT INTO currCampInfo (companyID, campName, campVideoURL, campAbout, campPricing) VALUES (:sessionID, :campName, :campVideoURL, :campAbout, :campPricing)";
+	$stmt = $this->db->prepare($sql);
+		$result = $stmt->execute(array(
+			':sessionID' => $sessionID,
+			':campName' => $campName,
+			':campVideoURL' => $campVideoURL,
+			':campAbout' => $campAbout,
+			':campPricing' => $campPricing
+			));
+		if(!$result) {
+			return "false";
+		} else {
+			return "true";
+		};
+	}
+	
+	// Update Current Campaign for Company in campaignInfo table
+	public function updateCurrCampInfo($sessionID, $campName, $campVideoURL, $campAbout, $campPricing) {
+
+		$sql = "UPDATE currCampInfo SET campName = :campName, campVideoURL = :campVideoURL, campAbout = :campAbout, campPricing=:campPricing WHERE companyID = :sessionID";
+
+		$stmt = $this->db->prepare($sql);
+		$result = $stmt->execute(array(
+			':sessionID' => $sessionID,
+			':campName' => $campName,
+			':campVideoURL' => $campVideoURL,
+			':campAbout' => $campAbout,
+			':campPricing' => $campPricing
+			));
+		if(!$result) {
+			return "false";
+		} else {
+			return "true";
+		};
+	}
+
+
+	// Fetch current campaigin Info from currcampinfo table
+	public function fetchCurrCampInfo($customerID){
+		$sql = "SELECT campName, campVideoURL, campAbout, campPricing FROM currCampInfo WHERE companyID = :companyID";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':companyID' => $customerID));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
 }
 
 

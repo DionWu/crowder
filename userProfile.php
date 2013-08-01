@@ -7,6 +7,7 @@
 
 	<?php
 		require 'header.php';
+		$customer = new customer(Conn::checkConn());
 	?>
 
 	<div class="pageBody">
@@ -15,7 +16,7 @@
 			<img src="images/placeholder.jpg">
 		</div>
 
-		<div id="userAbout">
+		<div id="userInfo">
 			<h1 id="userName"> <?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname'] ?> </h1>
 			<div id="userMedals"> 
 				<ul>
@@ -25,7 +26,24 @@
 					<li> <img src="images/badge.png"> </li>
 				</ul>
 			</div>
-			<p id="About"> Dion Wu is a 4th year at UC Berkeley, currently studying public health. He wants to be an entrepreneur and start things and create applications that will change the world. He is currently learning PHP and JQuery for server programming.</p>
+
+			<button type="button" id="editAboutButton">Edit</button>
+			<?php
+				$about = $customer->fetchCustomerAbout($_SESSION['customerID']);
+			?>
+			<form id="editAboutForm">
+				<textarea id="editAboutTextarea" maxlength="500" name="userAbout"><?php echo $about['about'];?></textarea>
+				<input type="submit">
+			</form>
+			<div id="About">
+				<?php
+					if (!$about['about']) {
+						echo "Edit your description here!";
+					} else {
+						echo $about['about'];
+					}
+				?>
+			</div>
 		</div>
 
 
@@ -75,7 +93,7 @@
 						<div class="durationBar">
 							|||||||||||||||||||||||||||||||||||||||||||||||||||||||
 						</div>
-						<div class="userCampLink">
+						<div class="userCurrCampLink">
 							Link: <a href="#">www.crowder.com/DionWu</a>
 						</div> 
 					</div>
@@ -91,7 +109,7 @@
 						<div class="durationBar">
 							|||||||||||||||||||||||||||||||||||||||||||||||||||||||
 						</div>
-						<div class="userCampLink">
+						<div class="userCurrCampLink">
 							Link: <a href="#">www.crowder.com/DionWu</a>
 						</div> 
 					</div>
