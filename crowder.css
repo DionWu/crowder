@@ -128,36 +128,58 @@ body {
 	list-style: none;
 }
 
-#userSideBar, #companySideBar {
+
+
+/* Sidebar */
+#customerSideBar {
 	display:inline-block;
-	width:18%;
+	width:20%;
 	float:left;
 	clear:left;
 }
-#userSocial. #companySocial {
-	display: block;
-	margin:5% 0 ;
-	padding: 4% 2% ;
+
+	/* Social */
+#editSocialButton {
+	float:right;
 }
-#userSocial ul li, #companySocial ul li{
+#editSocialForm {
+	display: block;
+	margin:2% 0 ;
+	padding: 4% 4% ;
+	border: 1px solid red;
+}
+#editSocialForm img, #customerSocial img {
+	height:30px;
+	width:30px;
+}
+#customerSocial {
+	display: block;
+	margin:2% 0 ;
+	padding: 4% 2% ;
+	border: 1px dashed green;
+}
+#customerSocial ul li{
 	list-style: none;
 	margin-left:-25%;
 }
 
-
-#userActivityContainer, #companyActivityContainer {
+	/* Activity Feed*/
+#customerActivityContainer {
 	display:inline-block;
 	margin: 1%;
 	padding: 3%;
 	border:1px dashed black;
 }
-.userActivity, .companyActivity {
+.customerActivity{
 	display: block;
 	margin: 5% 0;
 }
+
+
 #userMainBody, #companyMainBody {
 	float:right;
-	width:80%;
+	width:78%;
+	margin-left:2%;
 }
 
 /* User Profile Only */

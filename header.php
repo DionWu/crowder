@@ -1,6 +1,10 @@
 	<?php 
 		session_start();
 		include 'database.php';
+		$customerObj = new customer (Conn::checkConn());
+		$aboutObj = new customerAbout (Conn::checkConn());
+		$campObj = new currCamp (Conn::checkConn());
+		$socialObj = new social (Conn::checkConn());
 	?>
 
 	<!-- header -->

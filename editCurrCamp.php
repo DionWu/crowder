@@ -3,8 +3,8 @@
 	session_start();
 	include 'database.php';
 
-	$customer = new customer (Conn::checkConn());
-	$result = $customer->updateCurrCampInfo($_SESSION['customerID'], $_POST['editCampName'], $_POST['editCampVideoURL'], $_POST['editCampAbout'], $_POST['editCampPricing']);
+	$campObj = new currCamp (Conn::checkConn());
+	$result = $campObj->updateCurrCampInfo($_SESSION['customerID'], $_POST['editCampName'], $_POST['editCampVideoURL'], $_POST['editCampAbout'], $_POST['editCampPricing']);
 
 	if ($result === "true") {
 		$array = array(

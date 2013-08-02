@@ -7,7 +7,6 @@
 
 	<?php
 		require 'header.php';
-		$customer = new customer(Conn::checkConn());
 	?>
 
 	<div class="pageBody">
@@ -29,7 +28,7 @@
 
 			<button type="button" id="editAboutButton">Edit</button>
 			<?php
-				$about = $customer->fetchCustomerAbout($_SESSION['customerID']);
+				$about = $aboutObj->fetchCustomerAbout($_SESSION['customerID']);
 			?>
 			<form id="editAboutForm">
 				<textarea id="editAboutTextarea" maxlength="500" name="userAbout"><?php echo $about['about'];?></textarea>
@@ -47,8 +46,8 @@
 		</div>
 
 
-		<div id="userSidebar">
-			<div id="userSocial">
+		<div id="customerSidebar">
+			<div id="customerSocial">
 				<ul>
 					<li> <img src="images/badge.png"> facebook/dionwu </li>
 					<li> <img src="images/badge.png"> twitter/@DionWu </li>
@@ -60,21 +59,21 @@
 				</ul>
 			</div>
 
-			<div id="userActivityContainer">
+			<div id="customerActivityContainer">
 				<h3> Activity Feed </h3>
-				<div class="userActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
-				<div class="userActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
-				<div class="userActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
-				<div class="userActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
-				<div class="userActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
 			</div>

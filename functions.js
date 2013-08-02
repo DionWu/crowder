@@ -176,8 +176,42 @@ $("#editAboutForm").submit(function(){
 })
 
 	/* edit Social */
+$("#editSocialButton").fadeOut(0);
+$("#editSocialForm").hide();
 
+$("#customerSocial").hover(function(){
+	$("#editSocialButton").fadeIn(0);
+})
 
+$("#editSocialButton").click(function(){
+	$("#editSocialButton").fadeOut(0);
+	$("#customerSocial").hide();
+	$("#editSocialForm").show();
+	$("#editAdditionalSocial").hide();
+})
+$("#showMoreSocialLink").click(function(){
+	$(this).hide();
+	$("#editAdditionalSocial").show();
+})
+$("#showLessSocialLink").click(function(){
+	$("#editAdditionalSocial").hide();
+	$("#showMoreSocialLink").show();
+})
+$("#editSocialForm").submit(function(){
+	$.ajax ({
+		type: "POST",
+		url: "createCustomerSocial.php",
+		data: $(this).serialize()
+	}).done(function(response){
+		if (response === "true") {
+			$("#editSocialForm").hide();
+			$("#customerSocial").show();
+		} else {
+			$("#editSocialForm").hide();
+		}
+	});
+	return false;
+})
 
 	/*Company Page Only */
 		/*Current Campaign*/
@@ -217,9 +251,6 @@ $("#editCurrCampForm").submit(function(){
 	});
 	return false;
 })
-
-
-
 
 
 /* create new Campaign Page */

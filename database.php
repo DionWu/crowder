@@ -155,96 +155,7 @@ class customerDAO {
 		return $customerInfo;
 	}
 
-	// Add / update customer Profile About Into into customerAbout table
-	public function updateCustomerAbout($sessionID, $about) {
-		$sql = "SELECT customerID FROM customerabout WHERE customerID = :sessionID";
-		$stmt = $this->db->prepare($sql);
-		$stmt->execute(array(
-			':sessionID' => $sessionID
-			));
-		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if( $result ) {
-			$sql2 = "UPDATE customerabout SET about= :about WHERE customerID = :sessionID";
-		} else {
-		$sql2 = "INSERT INTO customerabout (customerID, about) VALUES (:sessionID, :about)";
-		};
-
-		$stmt2 = $this->db->prepare($sql2);
-		$result2 = $stmt2->execute(array(
-			':about'=> $about,
-			':sessionID' => $sessionID
-			));
-		if(!$result2) {
-			return "false";
-		} else {
-			return "true";
-		};
-	}
-
-	// Fetch customer Profile About info from customerAbout table
-	public function fetchCustomerAbout($customerID){
-		$sql = "SELECT about FROM customerabout WHERE customerID = :customerID";
-		$stmt = $this->db->prepare($sql);
-		$stmt->execute(array(
-			':customerID' => $customerID));
-		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-		return $result;
-	}
-
-	// Insert new Current Campaign for Company in campInfo Table
-	public function createCurrCampInfo($sessionID, $campName, $campVideoURL, $campAbout, $campPricing) {
-	$sql = "INSERT INTO currCampInfo (companyID, campName, campVideoURL, campAbout, campPricing) VALUES (:sessionID, :campName, :campVideoURL, :campAbout, :campPricing)";
-	$stmt = $this->db->prepare($sql);
-		$result = $stmt->execute(array(
-			':sessionID' => $sessionID,
-			':campName' => $campName,
-			':campVideoURL' => $campVideoURL,
-			':campAbout' => $campAbout,
-			':campPricing' => $campPricing
-			));
-		if(!$result) {
-			return "false";
-		} else {
-			return "true";
-		};
-	}
-	
-	// Update Current Campaign for Company in campaignInfo table
-	public function updateCurrCampInfo($sessionID, $campName, $campVideoURL, $campAbout, $campPricing) {
-
-		$sql = "UPDATE currCampInfo SET campName = :campName, campVideoURL = :campVideoURL, campAbout = :campAbout, campPricing=:campPricing WHERE companyID = :sessionID";
-
-		$stmt = $this->db->prepare($sql);
-		$result = $stmt->execute(array(
-			':sessionID' => $sessionID,
-			':campName' => $campName,
-			':campVideoURL' => $campVideoURL,
-			':campAbout' => $campAbout,
-			':campPricing' => $campPricing
-			));
-		if(!$result) {
-			return "false";
-		} else {
-			return "true";
-		};
-	}
-
-
-	// Fetch current campaigin Info from currcampinfo table
-	public function fetchCurrCampInfo($customerID){
-		$sql = "SELECT campName, campVideoURL, campAbout, campPricing FROM currCampInfo WHERE companyID = :companyID";
-		$stmt = $this->db->prepare($sql);
-		$stmt->execute(array(
-			':companyID' => $customerID));
-		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-		return $result;
-	}
-
 }
-
-
-
 
 
 
@@ -299,7 +210,6 @@ class customer extends customerDAO {
 	}
 
 
-
 	// logout
 	public function logout() {
 		session_unset();
@@ -307,6 +217,141 @@ class customer extends customerDAO {
 		header("Location: login_page.php");
 	}	
 }
+
+
+
+
+
+class profilePage {
+
+	protected $db;
+
+	// define db
+	public function __construct(&$db) {
+		$this->db = &$db;
+	}
+}
+
+class customerAbout extends profilePage { 
+	// Add / update customer Profile About Into into customerAbout table
+	public function updateCustomerAbout($sessionID, $about) {
+		$sql = "SELECT customerID FROM customerabout WHERE customerID = :sessionID";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':sessionID' => $sessionID
+			));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if( $result ) {
+			$sql2 = "UPDATE customerabout SET about= :about WHERE customerID = :sessionID";
+		} else {
+		$sql2 = "INSERT INTO customerabout (customerID, about) VALUES (:sessionID, :about)";
+		};
+
+		$stmt2 = $this->db->prepare($sql2);
+		$result2 = $stmt2->execute(array(
+			':about'=> $about,
+			':sessionID' => $sessionID
+			));
+		if(!$result2) {
+			return "false";
+		} else {
+			return "true";
+		};
+	}
+
+	// Fetch customer Profile About info from customerAbout table
+	public function fetchCustomerAbout($customerID){
+		$sql = "SELECT about FROM customerabout WHERE customerID = :customerID";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':customerID' => $customerID));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+}
+
+
+class currCamp extends profilePage {
+	// Insert new Current Campaign for Company in campInfo Table
+	public function createCurrCampInfo($sessionID, $campName, $campVideoURL, $campAbout, $campPricing) {
+	$sql = "INSERT INTO currCampInfo (companyID, campName, campVideoURL, campAbout, campPricing) VALUES (:sessionID, :campName, :campVideoURL, :campAbout, :campPricing)";
+	$stmt = $this->db->prepare($sql);
+		$result = $stmt->execute(array(
+			':sessionID' => $sessionID,
+			':campName' => $campName,
+			':campVideoURL' => $campVideoURL,
+			':campAbout' => $campAbout,
+			':campPricing' => $campPricing
+			));
+		if(!$result) {
+			return "false";
+		} else {
+			return "true";
+		};
+	}
+	
+	// Update Current Campaign for Company in campaignInfo table
+	public function updateCurrCampInfo($sessionID, $campName, $campVideoURL, $campAbout, $campPricing) {
+
+		$sql = "UPDATE currCampInfo SET campName = :campName, campVideoURL = :campVideoURL, campAbout = :campAbout, campPricing=:campPricing WHERE companyID = :sessionID";
+
+		$stmt = $this->db->prepare($sql);
+		$result = $stmt->execute(array(
+			':sessionID' => $sessionID,
+			':campName' => $campName,
+			':campVideoURL' => $campVideoURL,
+			':campAbout' => $campAbout,
+			':campPricing' => $campPricing
+			));
+		if(!$result) {
+			return "false";
+		} else {
+			return "true";
+		};
+	}
+
+
+	// Fetch current campaigin Info from currcampinfo table
+	public function fetchCurrCampInfo($customerID){
+		$sql = "SELECT campName, campVideoURL, campAbout, campPricing FROM currCampInfo WHERE companyID = :companyID";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':companyID' => $customerID));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+}
+
+
+class social extends profilePage {
+	
+	private $insertArray = array( ':facebook', ':twitter', ':youtube',':googleplus',':wordpress',':instagram',':flickr',':blogger',':tumblr',':pinterest',':linkedinuser',':linkedincompany',':foursquare',':vine',':vimeo',':yelp',':livejournal',':reddit',':github',':stackoverflow',':spotify',':soundcloud',':rss');
+	private $updateSetArray = array( 'facebook=:facebook2', 'twitter=:twitter2', 'youtube=:youtube2','googleplus=:googleplus2','wordpress=:wordpress2','instagram=:instagram2','flickr=:flickr2','blogger=:blogger2','tumblr=:tumblr2','pinterest=:pinterest2','linkedinuser=:linkedinuser2','linkedincompany=:linkedincompany2','foursquare=:foursquare2','vine=:vine2','vimeo=:vimeo2','yelp=:yelp2','livejournal=:livejournal2','reddit=:reddit2','github=:github2','stackoverflow=:stackoverflow2','spotify=:spotify2','soundcloud=:soundcloud2','rss=:rss2');
+	private $updateBindArray = array( ':facebook2', ':twitter2', ':youtube2',':googleplus2',':wordpress2',':instagram2',':flickr2',':blogger2',':tumblr2',':pinterest2',':linkedinuser2',':linkedincompany2',':foursquare2',':vine2',':vimeo2',':yelp2',':livejournal2',':reddit2',':github2',':stackoverflow2',':spotify2',':soundcloud2',':rss2');
+
+	// Create or update new entry of social networks in table customersocial 
+	public function createCustomerSocial($sessionID, $socialArray) {
+		$sql = "INSERT INTO customerSocial 
+		VALUES (:sessionID, ". implode(',',$this->insertArray) .") 
+		ON DUPLICATE KEY UPDATE " . implode(', ',$this->updateSetArray);
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':sessionID', $sessionID);
+		for ($i=0; $i < count($this->insertArray); $i++) {
+			$stmt->bindParam($this->insertArray[$i], $socialArray[$i]);
+			$stmt->bindParam($this->updateBindArray[$i], $socialArray[$i]);
+		};
+		$result = $stmt->execute();
+		if ($result) {
+			return "true";
+		} else {
+			return $stmt->errorInfo();
+		}
+	}
+
+	// Fetch social networks from table customersocial
+}
+
 
 
 ?>

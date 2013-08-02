@@ -7,7 +7,6 @@
 
 	<?php
 		require 'header.php';
-		$customer = new customer (Conn::checkConn());
 	?>
 
 	<div class="pageBody">
@@ -28,7 +27,7 @@
 			</div>
 			<button type="button" id="editAboutButton">Edit</button>
 			<?php
-					$about = $customer->fetchCustomerAbout($_SESSION['customerID']);
+					$about = $aboutObj->fetchCustomerAbout($_SESSION['customerID']);
 			?>
 			<form id="editAboutForm">
 				<textarea id="editAboutTextarea" maxlength="500" name="userAbout"><?php echo $about['about'];?></textarea>
@@ -46,34 +45,69 @@
 		</div>
 
 
-		<div id="companySidebar">
-			<div id="companySocial">
+		<div id="customerSidebar">
+			<button type="button" id="editSocialButton">Edit</button>
+
+			<form id="editSocialForm">
+				Add/Remove Social Networks
+				<img src="images/social/facebook.png"> <input type="text" name="facebook"><br>
+				<img src="images/social/twitter.png"> <input type="text" name="twitter"><br>
+				<img src="images/social/youtube.png"> <input type="text" name="youtube"><br>
+				<img src="images/social/googleplus.png"> <input type="text" name="googleplus"><br>
+				<img src="images/social/wordpress.png"> <input type="text" name="wordpress"><br>
+				<img src="images/social/instagram.png"> <input type="text" name="instagram"><br>
+				<img src="images/social/flickr.png"> <input type="text" name="flickr"><br>
+				<img src="images/social/blogger.png"> <input type="text" name="blogger"><br>
+				<img src="images/social/tumblr.png"> <input type="text" name="tumblr"><br>
+				<img src="images/social/pinterest.png"> <input type="text" name="pinterest"><br>
+				<a href="#" id="showMoreSocialLink">Show More</a><br>
+				<div id="editAdditionalSocial">
+					<img src="images/social/linkedin.png"> <input type="text" name="linkedinuser"><br>
+					<img src="images/social/linkedin.png"> <input type="text" name="linkedincompany"><br>
+					<img src="images/social/foursquare.png"> <input type="text" name="foursquare"><br>
+					<img src="images/social/vine.png"> <input type="text" name="vine"><br>
+					<img src="images/social/vimeo.png"> <input type="text" name="vimeo"><br>
+					<img src="images/social/yelp.png"> <input type="text" name="yelp"><br>
+					<img src="images/social/livejournal.png"> <input type="text" name="livejournal"><br>
+					<img src="images/social/reddit.png"> <input type="text" name="reddit"><br>
+					<img src="images/social/github.png"> <input type="text" name="github"><br>
+					<img src="images/social/stackoverflow.png"> <input type="text" name="stackoverflow"><br>
+					<img src="images/social/spotify.png"> <input type="text" name="spotify"><br>
+					<img src="images/social/soundcloud.png"> <input type="text" name="soundcloud"><br>
+					<img src="images/social/rss.png"> <input type="text" name="rss"><br>
+					<a href="#" id="showLessSocialLink">Show Less</a><br>
+				</div>
+
+				<input type="submit">
+			</form>
+
+			<div id="customerSocial">
 				<ul>
-					<li> <img src="images/badge.png"> facebook/dionwu </li>
-					<li> <img src="images/badge.png"> twitter/@DionWu </li>
-					<li> <img src="images/badge.png"> youtube/thedionwu </li>
-					<li> <img src="images/badge.png"> instagram/wu_dion </li>
-					<li> <img src="images/badge.png"> pinterest/dionwu </li>
-					<li> <img src="images/badge.png"> vine/wu_dion </li>
-					<li> <img src="images/badge.png"> tumblr/wu_dion </li>
+					<li> <img src="images/social/.png"> facebook/dionwu </li>
+					<li> <img src="images/social/.png"> twitter/@DionWu </li>
+					<li> <img src="images/social/.png"> youtube/thedionwu </li>
+					<li> <img src="images/social/.png"> instagram/wu_dion </li>
+					<li> <img src="images/social/.png"> pinterest/dionwu </li>
+					<li> <img src="images/social/.png"> vine/wu_dion </li>
+					<li> <img src="images/social/.png"> tumblr/wu_dion </li>
 				</ul>
 			</div>
 
-			<div id="companyActivityContainer">
+			<div id="customerActivityContainer">
 				<h3> Activity Feed </h3>
-				<div class="companyActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
-				<div class="companyActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
-				<div class="companyActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
-				<div class="companyActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
-				<div class="companyActivity">
+				<div class="customerActivity">
 					Sample Activity. blah blah blah blah blah blah blah blah blah blah blah blah blah
 				</div>
 			</div>
@@ -87,7 +121,7 @@
 			<div id="companyCurrCampContainer">
 
 				<?php
-					$currCampInfoArray = $customer->fetchCurrCampInfo($_SESSION['customerID']);
+					$currCampInfoArray = $campObj->fetchCurrCampInfo($_SESSION['customerID']);
 					if (empty($currCampInfoArray)) {
 				?>
 
