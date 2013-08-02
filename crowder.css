@@ -152,16 +152,39 @@ body {
 	height:30px;
 	width:30px;
 }
+
+#editAdditionalSocial, #additionalSocial {
+	margin-top:-12%;
+}
+
+#customerSocialNULL {
+	display: block;
+	margin:2% 0 ;
+	padding: 4% 4% ;
+	border: 1px dashed green;
+}
+
 #customerSocial {
 	display: block;
 	margin:2% 0 ;
-	padding: 4% 2% ;
+	padding: 4% 4% ;
 	border: 1px dashed green;
 }
 #customerSocial ul li{
 	list-style: none;
-	margin-left:-25%;
+	margin-left:-5%;
 }
+#customerSocial ul li a{
+	text-decoration: none;
+}
+.socialLink {
+	font-size: 1em;
+}
+#showMoreSocialLink, #showLessSocialLink {
+	text-decoration: none;
+}
+
+
 
 	/* Activity Feed*/
 #customerActivityContainer {
@@ -285,6 +308,20 @@ body {
 #companyCurrCampVideo {
 	clear:both;
 }
+
+
+
+
+
+/* create customer social page */
+#createSocialForm img {
+	height: 40px;
+	width: 40px;
+}
+
+
+
+
 
 
 /* Create new Campaign Page */

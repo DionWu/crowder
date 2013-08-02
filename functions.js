@@ -188,14 +188,15 @@ $("#editSocialButton").click(function(){
 	$("#customerSocial").hide();
 	$("#editSocialForm").show();
 	$("#editAdditionalSocial").hide();
+	$("#showMoreEditSocialLink").show();
 })
-$("#showMoreSocialLink").click(function(){
+$("#showMoreEditSocialLink").click(function(){
 	$(this).hide();
 	$("#editAdditionalSocial").show();
 })
-$("#showLessSocialLink").click(function(){
+$("#showLessEditSocialLink").click(function(){
 	$("#editAdditionalSocial").hide();
-	$("#showMoreSocialLink").show();
+	$("#showMoreEditSocialLink").show();
 })
 $("#editSocialForm").submit(function(){
 	$.ajax ({
@@ -204,14 +205,33 @@ $("#editSocialForm").submit(function(){
 		data: $(this).serialize()
 	}).done(function(response){
 		if (response === "true") {
-			$("#editSocialForm").hide();
-			$("#customerSocial").show();
-		} else {
-			$("#editSocialForm").hide();
-		}
+			window.location = 'companyProfile.php';
+		} 
 	});
 	return false;
 })
+	/* Social NULL */
+$("#createCustomerSocialButton").click(function(){
+	window.location = 'createCustomerSocialPage.php';
+})
+	/* Social */
+
+	// Adding Show More / Show Less links to customer's social
+
+$("#additionalSocial").hide();
+
+$("#showMoreSocialLink").click(function(){
+	$(this).hide();
+	$("#additionalSocial").show();
+})
+$("#showLessSocialLink").click(function(){
+	$("#additionalSocial").hide();
+	$("#showMoreSocialLink").show();
+})
+
+
+
+
 
 	/*Company Page Only */
 		/*Current Campaign*/
@@ -249,6 +269,22 @@ $("#editCurrCampForm").submit(function(){
 		$("#companyCurrCampPricing").html(response.editCampPricing);
 		$("#companyCurrCamp").show();
 	});
+	return false;
+})
+
+
+
+/* create customer social page */
+$("#createSocialForm").submit(function(){
+	$.ajax ({
+		type: "POST",
+		url: "createCustomerSocial.php",
+		data: $(this).serialize()
+	}).done(function(response){
+		if (response === "true") {
+			window.location = "detProfilePage.php";
+		}
+	})
 	return false;
 })
 

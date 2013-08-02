@@ -50,47 +50,131 @@
 
 			<form id="editSocialForm">
 				Add/Remove Social Networks
-				<img src="images/social/facebook.png"> <input type="text" name="facebook"><br>
-				<img src="images/social/twitter.png"> <input type="text" name="twitter"><br>
-				<img src="images/social/youtube.png"> <input type="text" name="youtube"><br>
-				<img src="images/social/googleplus.png"> <input type="text" name="googleplus"><br>
-				<img src="images/social/wordpress.png"> <input type="text" name="wordpress"><br>
-				<img src="images/social/instagram.png"> <input type="text" name="instagram"><br>
-				<img src="images/social/flickr.png"> <input type="text" name="flickr"><br>
-				<img src="images/social/blogger.png"> <input type="text" name="blogger"><br>
-				<img src="images/social/tumblr.png"> <input type="text" name="tumblr"><br>
-				<img src="images/social/pinterest.png"> <input type="text" name="pinterest"><br>
-				<a href="#" id="showMoreSocialLink">Show More</a><br>
-				<div id="editAdditionalSocial">
-					<img src="images/social/linkedin.png"> <input type="text" name="linkedinuser"><br>
-					<img src="images/social/linkedin.png"> <input type="text" name="linkedincompany"><br>
-					<img src="images/social/foursquare.png"> <input type="text" name="foursquare"><br>
-					<img src="images/social/vine.png"> <input type="text" name="vine"><br>
-					<img src="images/social/vimeo.png"> <input type="text" name="vimeo"><br>
-					<img src="images/social/yelp.png"> <input type="text" name="yelp"><br>
-					<img src="images/social/livejournal.png"> <input type="text" name="livejournal"><br>
-					<img src="images/social/reddit.png"> <input type="text" name="reddit"><br>
-					<img src="images/social/github.png"> <input type="text" name="github"><br>
-					<img src="images/social/stackoverflow.png"> <input type="text" name="stackoverflow"><br>
-					<img src="images/social/spotify.png"> <input type="text" name="spotify"><br>
-					<img src="images/social/soundcloud.png"> <input type="text" name="soundcloud"><br>
-					<img src="images/social/rss.png"> <input type="text" name="rss"><br>
-					<a href="#" id="showLessSocialLink">Show Less</a><br>
-				</div>
-
+				<!-- For loop to show all available social sites to display on crowder, while including a show more/less link -->
+				<?php 
+					$customerSocialList = $socialObj->fetchCustomerSocial($_SESSION['customerID']);
+					$editSocialFormCounter=0;
+					while(list($key, $value) = each($customerSocialList[0])) {
+						if(!empty($value) && ($key !== 'customerID')) {
+							echo "<img src='images/social/" . $key . ".png'> <input type='text' name='" . $key . "' value='" . $value . "'><br>";
+						} else if ($key !== 'customerID') {
+							echo "<img src='images/social/" . $key . ".png'> <input type='text' name='" . $key . "' value=''><br>";
+						}
+						$editSocialFormCounter++;
+						if ($editSocialFormCounter === 11) {
+							echo "<a href='#' id='showMoreEditSocialLink'>Show More</a><br>
+							<div id='editAdditionalSocial'>";
+						} else if ($editSocialFormCounter === 24) {
+							echo "<a href='#'id='showLessEditSocialLink'>Show Less</a><br>
+							</div>";
+						}
+					} 
+				?>
 				<input type="submit">
 			</form>
 
-			<div id="customerSocial">
-				<ul>
-					<li> <img src="images/social/.png"> facebook/dionwu </li>
-					<li> <img src="images/social/.png"> twitter/@DionWu </li>
-					<li> <img src="images/social/.png"> youtube/thedionwu </li>
-					<li> <img src="images/social/.png"> instagram/wu_dion </li>
-					<li> <img src="images/social/.png"> pinterest/dionwu </li>
-					<li> <img src="images/social/.png"> vine/wu_dion </li>
-					<li> <img src="images/social/.png"> tumblr/wu_dion </li>
-				</ul>
+
+			<div id="customerSocialContainer">
+				<?php
+				$customerSocialList = $socialObj->fetchCustomerSocial($_SESSION['customerID']); 
+				if (!empty($customerSocialList)) {
+				?>
+					<!--Displaying only the social networks customer has decided to make public --> 
+					<div id="customerSocial">
+						<ul>
+							<?php
+							$customerSocialCounter=0;
+							while(list($key, $value) = each($customerSocialList[0])) {
+
+								// If total social networks > 10, display show more link
+								if ($customerSocialCounter === 10) {
+									?>
+									<br><a href='#' id='showMoreSocialLink'>Show More</a>
+									<div id='additionalSocial'>
+									<?php 
+								} 
+								// Displays list of social networks that users provide info for
+								if(!empty($value) && ($key !== 'customerID')) { 
+									
+									echo "<li>";
+										
+											//Array for social network links
+											$socialLinkArray = array(
+												'facebook' => 'facebook.com/',
+												'twitter' => 'twitter.com/',
+												'youtube' => 'youtube.com/user/',
+												'googleplus' => 'plus.google.com/',
+												'wordpress' => '.wordpress.com/',
+												'instagram' => 'instagram.com/',
+												'flickr' => 'flickr.com/photos',
+												'blogger' => '.blogspot.com/',
+												'tumblr' => '.tumblr.com/',
+												'pinterest' => 'pinterest.com/',
+												'linkedinuser' => 'linkedin.com/in/',
+												'linkedincompany' => 'linkedin.com/company/',
+												'foursquare' => 'foursquare.com/',
+												'vine' => 'vine://user/',
+												'vimeo' => 'vimeo.com/',
+												'yelp' => '.yelp.com/',
+												'livejournal' => '.livejournal.com/',
+												'reddit' => 'reddit.com/user/',
+												'github' => 'github.com/',
+												'stackoverflow' => 'stackoverflow/users/',
+												'spotify' => 'open.spotify.com/user/',
+												'soundcloud' => 'soundcloud.com/',
+												'rss' => '',
+												);
+
+											// Echoing links based on social network type
+											if ($key === 'wordpress' || $key === 'blogger' || $key === 'tumblr' || $key === 'yelp' || $key === 'livejournal') {
+												echo "<a href='https://".$value.$socialLinkArray[$key]."'>";
+											} else if ($key==='rss'){
+												echo "<a href='https://".$value."'>";
+											} else {
+												echo "<a href='https://".$socialLinkArray[$key].$value."'>";
+											}
+										
+										// Displaying proper image & value 
+										echo "<img src='images/social/" . $key . ".png'>";
+										
+										if ($key === 'twitter') {
+											echo "<span class='socialLink'> @" . $value . "</span></a>";
+										} else if ($key ==='googleplus') {
+											echo "<span class='socialLink'> " . $_SESSION['companyName'] . "'s g+ </span></a>";
+										} else {
+											echo "<span class='socialLink'> /" . $value . "</span></a>";
+										}
+										
+									echo "</li>";
+									
+									// Incrementing customerSocialCounter to count how many social networks displayed
+									$customerSocialCounter++;
+								} 
+
+							}
+							// At end, if social networks > 10, display show less link 
+							if ($customerSocialCounter > 10) {
+								?>
+								<br><a href='#'id='showLessSocialLink'>Show Less</a><br>
+								</div>
+								<?php
+							}	
+							?>
+						</ul>
+					</div>
+				
+				<?php
+				} 
+				else {
+				?>
+					<!-- Displaying a new div if user has not yet added any social networks -->
+					<div id="customerSocialNULL">	
+						<p> Looks like you aren't showing off your social media prowess! </p> 
+						<button type='button' id='createCustomerSocialButton'>Get Started!</button>
+					</div>
+				<?php
+				}		
+				?>
 			</div>
 
 			<div id="customerActivityContainer">

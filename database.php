@@ -327,7 +327,9 @@ class currCamp extends profilePage {
 class social extends profilePage {
 	
 	private $insertArray = array( ':facebook', ':twitter', ':youtube',':googleplus',':wordpress',':instagram',':flickr',':blogger',':tumblr',':pinterest',':linkedinuser',':linkedincompany',':foursquare',':vine',':vimeo',':yelp',':livejournal',':reddit',':github',':stackoverflow',':spotify',':soundcloud',':rss');
+
 	private $updateSetArray = array( 'facebook=:facebook2', 'twitter=:twitter2', 'youtube=:youtube2','googleplus=:googleplus2','wordpress=:wordpress2','instagram=:instagram2','flickr=:flickr2','blogger=:blogger2','tumblr=:tumblr2','pinterest=:pinterest2','linkedinuser=:linkedinuser2','linkedincompany=:linkedincompany2','foursquare=:foursquare2','vine=:vine2','vimeo=:vimeo2','yelp=:yelp2','livejournal=:livejournal2','reddit=:reddit2','github=:github2','stackoverflow=:stackoverflow2','spotify=:spotify2','soundcloud=:soundcloud2','rss=:rss2');
+
 	private $updateBindArray = array( ':facebook2', ':twitter2', ':youtube2',':googleplus2',':wordpress2',':instagram2',':flickr2',':blogger2',':tumblr2',':pinterest2',':linkedinuser2',':linkedincompany2',':foursquare2',':vine2',':vimeo2',':yelp2',':livejournal2',':reddit2',':github2',':stackoverflow2',':spotify2',':soundcloud2',':rss2');
 
 	// Create or update new entry of social networks in table customersocial 
@@ -350,6 +352,14 @@ class social extends profilePage {
 	}
 
 	// Fetch social networks from table customersocial
+	public function fetchCustomerSocial($customerID) {
+		$sql = "SELECT * FROM customersocial WHERE customerID = :customerID";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':customerID' => $customerID));
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
+	}
 }
 
 
